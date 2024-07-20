@@ -1,0 +1,19 @@
+package dev.greenhouseteam.greenhouse_common.fabric.mixin.client;
+
+import dev.greenhouseteam.greenhouse_common.GreenhouseCommon;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.TitleScreen;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(TitleScreen.class)
+public class Mixin_TitleScreen {
+    
+    @Inject(at = @At("HEAD"), method = "init()V")
+    private void init(CallbackInfo info) {
+        GreenhouseCommon.LOG.info("This line is printed by an example mod mixin from Fabric!");
+        GreenhouseCommon.LOG.info("MC Version: {}", Minecraft.getInstance().getVersionType());
+    }
+}

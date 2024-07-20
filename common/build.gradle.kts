@@ -1,5 +1,5 @@
-import dev.greenhouseteam.examplemod.gradle.Properties
-import dev.greenhouseteam.examplemod.gradle.Versions
+import dev.greenhouseteam.greenhouse_common.gradle.Properties
+import dev.greenhouseteam.greenhouse_common.gradle.Versions
 import me.modmuss50.mpp.PublishModTask
 
 plugins {
