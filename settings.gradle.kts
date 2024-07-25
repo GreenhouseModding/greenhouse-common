@@ -19,7 +19,16 @@ plugins {
 }
 
 // This should match the folder name of the project, or else IDEA may complain (see https://youtrack.jetbrains.com/issue/IDEA-317606)
-rootProject.name = "Greenhouse-Multiloader-Template"
-include("common")
-include("fabric")
-include("neoforge")
+rootProject.name = "Greenhouse-Common"
+
+val platforms = setOf("common", "fabric", "neoforge")
+platforms.forEach {
+    include(":${it}")
+}
+val modules = setOf("core", "event", "registry")
+modules.forEach {
+    platforms.forEach { platform ->
+        include(":${it}-${platform}")
+        project(":${it}-${platform}").projectDir = file("${it}/${platform}")
+    }
+}

@@ -9,6 +9,29 @@ plugins {
     id("me.modmuss50.mod-publish-plugin")
 }
 
+
+dependencies {
+    testCompileOnly(project(":common", "commonTestJava"))
+
+    Properties.MODULES.forEach {
+        compileOnly(project(":$it-common")) {
+            capabilities {
+                requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-$it-common")
+            }
+        }
+        testImplementation(project(":$it-common")) {
+            capabilities {
+                requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-$it-common")
+            }
+        }
+        jarJar(project(":$it-neoforge")) {
+            capabilities {
+                requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-$it-neoforge")
+            }
+        }
+    }
+}
+
 neoForge {
     version = Versions.NEOFORGE
     parchment {
@@ -65,24 +88,6 @@ publishMods {
     changelog = rootProject.file("CHANGELOG.md").readText()
     version = "${Versions.MOD}+${Versions.MINECRAFT}-neoforge"
     type = STABLE
-
-    curseforge {
-        projectId = Properties.CURSEFORGE_PROJECT_ID
-        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-
-        minecraftVersions.add(Versions.MINECRAFT)
-        javaVersions.add(JavaVersion.VERSION_21)
-
-        clientRequired = true
-        serverRequired = true
-    }
-
-    modrinth {
-        projectId = Properties.MODRINTH_PROJECT_ID
-        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-
-        minecraftVersions.add(Versions.MINECRAFT)
-    }
 
     github {
         accessToken = providers.environmentVariable("GITHUB_TOKEN")

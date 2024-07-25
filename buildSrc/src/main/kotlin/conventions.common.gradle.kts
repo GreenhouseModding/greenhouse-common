@@ -8,7 +8,7 @@ plugins {
     `maven-publish`
 }
 
-base.archivesName.set(Properties.MOD_NAME)
+base.archivesName.set("${Properties.MOD_ID}-${project.name}")
 group = Properties.GROUP
 version = "${Versions.MOD}+${Versions.MINECRAFT}"
 
@@ -54,11 +54,10 @@ dependencies {
 setOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements").forEach { variant ->
     configurations.getByName(variant).outgoing {
         capability("$group:${Properties.MOD_ID}-${project.name}:$version")
-        capability("$group:${Properties.MOD_ID}:$version")
     }
     publishing.publications.forEach { publication ->
         if (publication is MavenPublication) {
-            publication.suppressPomMetadataWarningsFor(variant);
+            publication.suppressPomMetadataWarningsFor(variant)
         }
     }
 }

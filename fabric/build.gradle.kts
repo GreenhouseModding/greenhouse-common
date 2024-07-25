@@ -23,6 +23,23 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${Versions.FABRIC_LOADER}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${Versions.FABRIC_API}")
     modLocalRuntime("com.terraformersmc:modmenu:${Versions.MOD_MENU}")
+
+    testCompileOnly(project(":common", "commonTestJava"))
+
+    Properties.MODULES.forEach {
+        compileOnly(project(":$it-common")) {
+            capabilities {
+                requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-$it-common")
+            }
+        }
+        testCompileOnly(project(":$it-common")) {
+            capabilities {
+                requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-$it-common")
+            }
+        }
+        implementation(project(":$it-fabric", "namedElements"))
+        include(project(":$it-fabric"))
+    }
 }
 
 loom {
@@ -78,24 +95,6 @@ publishMods {
     changelog = rootProject.file("CHANGELOG.md").readText()
     version = "${Versions.MOD}+${Versions.MINECRAFT}-fabric"
     type = STABLE
-
-    curseforge {
-        projectId = Properties.CURSEFORGE_PROJECT_ID
-        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-
-        minecraftVersions.add(Versions.MINECRAFT)
-        javaVersions.add(JavaVersion.VERSION_21)
-
-        clientRequired = true
-        serverRequired = true
-    }
-
-    modrinth {
-        projectId = Properties.MODRINTH_PROJECT_ID
-        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-
-        minecraftVersions.add(Versions.MINECRAFT)
-    }
 
     github {
         accessToken = providers.environmentVariable("GITHUB_TOKEN")

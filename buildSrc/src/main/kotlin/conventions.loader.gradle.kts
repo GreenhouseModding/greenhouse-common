@@ -4,8 +4,17 @@ plugins {
     id("conventions.common")
 }
 
+fun getCommonProjectName() : String {
+    if (!project.name.contains("-"))
+        return "common"
+    return project.name.split("-")[0] + "-common"
+}
+
 configurations {
     register("commonJava") {
+        isCanBeResolved = true
+    }
+    register("commonTestJava") {
         isCanBeResolved = true
     }
     register("commonResources") {
@@ -17,14 +26,20 @@ configurations {
 }
 
 dependencies {
-    compileOnly(project(":common")) {
+    compileOnly(project(":${getCommonProjectName()}")) {
         capabilities {
-            requireCapability("$group:${Properties.MOD_ID}")
+            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-${getCommonProjectName()}")
         }
     }
-    "commonJava"(project(":common", "commonJava"))
-    "commonResources"(project(":common", "commonResources"))
-    "commonTestResources"(project(":common", "commonTestResources"))
+    testCompileOnly(project(":${getCommonProjectName()}")) {
+        capabilities {
+            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-${getCommonProjectName()}")
+        }
+    }
+    "commonJava"(project(":${getCommonProjectName()}", "commonJava"))
+    "commonTestJava"(project(":${getCommonProjectName()}", "commonTestJava"))
+    "commonResources"(project(":${getCommonProjectName()}", "commonResources"))
+    "commonTestResources"(project(":${getCommonProjectName()}", "commonTestResources"))
 }
 
 tasks {
