@@ -40,6 +40,6 @@ publishMods {
 
     github {
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
-        parent(project(":common").tasks.named("publishGithub"))
+        parent(project(":core-common").tasks.named("publishGithub"))
     }
 }

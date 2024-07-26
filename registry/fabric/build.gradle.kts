@@ -30,6 +30,13 @@ dependencies {
         }
     }
     compileOnly(project(":core-fabric", "namedElements"))
+
+    compileOnly(project(":event-common")) {
+        capabilities {
+            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-event-common")
+        }
+    }
+    compileOnly(project(":event-fabric", "namedElements"))
 }
 
 loom {
@@ -56,6 +63,6 @@ publishMods {
 
     github {
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
-        parent(project(":common").tasks.named("publishGithub"))
+        parent(project(":core-common").tasks.named("publishGithub"))
     }
 }

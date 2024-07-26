@@ -20,6 +20,11 @@ dependencies {
             requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-core-common")
         }
     }
+    compileOnly(project(":event-common")) {
+        capabilities {
+            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-event-common")
+        }
+    }
 }
 neoForge {
     neoFormVersion = Versions.NEOFORM

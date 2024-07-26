@@ -20,6 +20,17 @@ dependencies {
             requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-core-neoforge")
         }
     }
+
+    compileOnly(project(":event-common")) {
+        capabilities {
+            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-event-common")
+        }
+    }
+    compileOnly(project(":event-neoforge")) {
+        capabilities {
+            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-event-neoforge")
+        }
+    }
 }
 
 neoForge {
@@ -53,6 +64,6 @@ publishMods {
 
     github {
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
-        parent(project(":common").tasks.named("publishGithub"))
+        parent(project(":core-common").tasks.named("publishGithub"))
     }
 }
