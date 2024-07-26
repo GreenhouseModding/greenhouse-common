@@ -1,8 +1,5 @@
 import dev.greenhouseteam.greenhouse_common.gradle.Properties
 import dev.greenhouseteam.greenhouse_common.gradle.Versions
-import org.apache.tools.ant.filters.LineContains
-import org.gradle.jvm.tasks.Jar
-import dev.greenhouseteam.greenhouse_common.gradle.props
 
 plugins {
     id("net.neoforged.moddev")

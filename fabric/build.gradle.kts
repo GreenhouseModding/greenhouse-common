@@ -1,7 +1,5 @@
 import dev.greenhouseteam.greenhouse_common.gradle.Properties
 import dev.greenhouseteam.greenhouse_common.gradle.Versions
-import org.gradle.jvm.tasks.Jar
-import dev.greenhouseteam.greenhouse_common.gradle.props
 
 plugins {
     id("fabric-loom")
