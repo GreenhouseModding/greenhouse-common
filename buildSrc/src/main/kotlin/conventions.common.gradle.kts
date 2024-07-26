@@ -9,17 +9,20 @@ plugins {
 }
 
 lateinit var props: Properties.ModuleProperties
+lateinit var platform: String
 
 Properties.MODULES.forEach { (name, metadata) ->
     Properties.PLATFORMS.forEach { platform ->
-        if (project.name == "${name}-${platform}")
+        if (project.name == "${name}-${platform}") {
             props = metadata
+            this.platform = platform
+        }
     }
 }
 
 project.ext["props"] = props
 
-base.archivesName.set("${props.modId}-${project.name}")
+base.archivesName.set("${props.modId}-${platform}")
 group = Properties.GROUP
 version = "${Versions.MOD}+${Versions.MINECRAFT}"
 
@@ -105,8 +108,8 @@ tasks {
         "fabric_loader_range" to Versions.FABRIC_LOADER_RANGE,
         "mod_name" to props.modName,
         "mod_author" to Properties.MOD_AUTHOR,
-        "mod_contributors" to Properties.MOD_CONTRIBUTORS,
-        "fabric_mod_contributors" to createFabricContributors(),
+        "neoforge_mod_contributors" to Properties.MOD_CONTRIBUTORS.joinToString(prefix = ", "),
+        "fabric_mod_contributors" to Properties.MOD_CONTRIBUTORS.joinToString(prefix = "\"\n,\t\t\""),
         "mod_id" to props.modId,
         "mod_license" to Properties.LICENSE,
         "mod_description" to props.description,
@@ -127,21 +130,6 @@ tasks {
         }
         exclude("\\.cache")
     }
-}
-
-fun createFabricContributors() : String {
-    val string = StringBuilder();
-    val contributors = Properties.MOD_CONTRIBUTORS.split(", ")
-    var count = 0
-    for (contributor in contributors) {
-        if (count > 0)
-            string.append("\t\t")
-        ++count
-        string.append("\"${contributor}\"")
-        if (count < contributors.size)
-            string.append(",\n")
-    }
-    return string.toString()
 }
 
 publishing {

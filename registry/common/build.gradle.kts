@@ -15,19 +15,19 @@ sourceSets {
     }
 }
 
-val common = project(":core-common")
+val core = project(":core-common")
 val event = project(":event-common")
 
 dependencies {
     compileOnly(project(":core-common")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${common.props.modId}-common")
+            requireCapability("${Properties.GROUP}:${core.props.modId}-${core.props.moduleName}-common")
         }
         isTransitive = false
     }
     compileOnly(project(":event-common")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${event.props.modId}-common")
+            requireCapability("${Properties.GROUP}:${event.props.modId}-${event.props.moduleName}-common")
         }
         isTransitive = false
     }

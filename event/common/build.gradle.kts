@@ -15,12 +15,12 @@ sourceSets {
     }
 }
 
-val common = project(":core-common")
+val core = project(":core-common")
 
 dependencies {
     compileOnly(project(":core-common")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${common.props.modId}-common")
+            requireCapability("${Properties.GROUP}:${core.props.modId}-${core.props.moduleName}-common")
         }
         isTransitive = false
     }

@@ -10,32 +10,35 @@ plugins {
     id("me.modmuss50.mod-publish-plugin")
 }
 
-val common = project(":core-common")
+
+val core = project(":core-common")
 val event = project(":event-common")
+
+evaluationDependsOn(":event-common")
 
 dependencies {
     compileOnly(project(":core-common")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${common.props.modId}-common")
+            requireCapability("${Properties.GROUP}:${core.props.modId}-${core.props.moduleName}-common")
         }
         isTransitive = false
     }
     compileOnly(project(":core-neoforge")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${common.props.modId}-neoforge")
+            requireCapability("${Properties.GROUP}:${core.props.modId}-${core.props.moduleName}-neoforge")
         }
         isTransitive = false
     }
 
     compileOnly(project(":event-common")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${event.props.modId}-common")
+            requireCapability("${Properties.GROUP}:${event.props.modId}-${event.props.moduleName}-common")
         }
         isTransitive = false
     }
     compileOnly(project(":event-neoforge")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${event.props.modId}-neoforge")
+            requireCapability("${Properties.GROUP}:${event.props.modId}-${event.props.moduleName}-neoforge")
         }
         isTransitive = false
     }

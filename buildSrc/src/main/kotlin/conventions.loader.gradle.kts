@@ -37,12 +37,12 @@ configurations {
 dependencies {
     compileOnly(project(":${getCommonProjectName()}")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${props.modId}-${getCommonProjectName()}")
+            requireCapability("${Properties.GROUP}:${props.modId}-${props.moduleName}-common")
         }
     }
     testCompileOnly(project(":${getCommonProjectName()}")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${props.modId}-${getCommonProjectName()}")
+            requireCapability("${Properties.GROUP}:${props.modId}-${props.moduleName}-common")
         }
     }
     "commonJava"(project(":${getCommonProjectName()}", "commonJava"))

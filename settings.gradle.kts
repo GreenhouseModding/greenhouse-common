@@ -24,6 +24,9 @@ rootProject.name = "Greenhouse-Common"
 val platforms = setOf("common", "fabric", "neoforge")
 val modules = setOf("core", "event", "registry")
 
+include(":fabric")
+include(":neoforge")
+
 modules.forEach { name ->
     platforms.forEach { platform ->
         include(":${name}-${platform}")

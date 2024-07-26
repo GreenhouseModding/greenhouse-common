@@ -17,8 +17,10 @@ repositories {
     }
 }
 
-val common = project(":core-common")
+val core = project(":core-common")
 val event = project(":event-common")
+
+evaluationDependsOn(":event-common")
 
 dependencies {
     minecraft("com.mojang:minecraft:${Versions.INTERNAL_MINECRAFT}")
@@ -26,11 +28,10 @@ dependencies {
 
     modImplementation("net.fabricmc:fabric-loader:${Versions.FABRIC_LOADER}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${Versions.FABRIC_API}")
-    modLocalRuntime("com.terraformersmc:modmenu:${Versions.MOD_MENU}")
 
     compileOnly(project(":core-common")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${common.props.modId}-common")
+            requireCapability("${Properties.GROUP}:${core.props.modId}-${core.props.moduleName}-common")
         }
         isTransitive = false
     }
@@ -40,7 +41,7 @@ dependencies {
 
     compileOnly(project(":event-common")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${event.props.modId}-common")
+            requireCapability("${Properties.GROUP}:${event.props.modId}-${event.props.moduleName}-common")
         }
         isTransitive = false
     }

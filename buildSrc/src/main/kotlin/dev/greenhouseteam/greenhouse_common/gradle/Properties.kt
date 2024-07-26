@@ -6,7 +6,7 @@ import org.gradle.api.Project
 object Properties {
     const val GROUP = "dev.greenhouseteam"
     const val MOD_AUTHOR = "Greenhouse Team"
-    const val MOD_CONTRIBUTORS = "Oliver-makes-code, MerchantPug"
+    val MOD_CONTRIBUTORS = listOf("Oliver-makes-code", "MerchantPug")
     const val LICENSE = "MPL-2.0"
 
     const val HOMEPAGE = "https://github.com/GreenhouseTeam/Greenhouse-Common"
@@ -14,9 +14,9 @@ object Properties {
     const val GITHUB_COMMITISH = Versions.MOD
 
     val MODULES = mapOf(
-        "core" to ModuleProperties("Greenhouse Common", "greenhouse_common", "Common code for Greenhouse mods"),
-        "event" to ModuleProperties("Greenhouse Event", "greenhouse_event", "Events for Greenhouse Common"),
-        "registry" to ModuleProperties("Greenhouse Registry", "greenhouse_registry", "Registry helpers for Greenhouse Common")
+        "core" to ModuleProperties("core", "Greenhouse Common", "greenhouse_common", "Common code for Greenhouse mods"),
+        "event" to ModuleProperties("event", "Greenhouse Event", "greenhouse_event", "Events for Greenhouse Common"),
+        "registry" to ModuleProperties("registry", "Greenhouse Registry", "greenhouse_registry", "Registry helpers for Greenhouse Common")
     )
 
     val PLATFORMS = setOf(
@@ -25,7 +25,7 @@ object Properties {
         "neoforge"
     )
 
-    class ModuleProperties(val modName: String, val modId: String, val description: String)
+    class ModuleProperties(val moduleName: String, val modName: String, val modId: String, val description: String)
 }
 
 val Project.props: Properties.ModuleProperties
