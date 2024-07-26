@@ -1,6 +1,7 @@
 import dev.greenhouseteam.greenhouse_common.gradle.Properties
 import dev.greenhouseteam.greenhouse_common.gradle.Versions
 import org.gradle.jvm.tasks.Jar
+import dev.greenhouseteam.greenhouse_common.gradle.props
 
 plugins {
     id("conventions.loader")
@@ -25,17 +26,17 @@ dependencies {
 }
 
 loom {
-    val aw = file("src/main/resources/${Properties.MOD_ID}-core.accesswidener");
+    val aw = file("src/main/resources/${project.props.modId}.accesswidener");
     if (aw.exists())
         accessWidenerPath.set(aw)
     mixin {
-        defaultRefmapName.set("${Properties.MOD_ID}-core.refmap.json")
+        defaultRefmapName.set("${project.props.modId}.refmap.json")
     }
 }
 
 tasks {
     named<ProcessResources>("processResources").configure {
-        exclude("${Properties.MOD_ID}.cfg")
+        exclude("${project.props.modId}.cfg")
     }
 }
 

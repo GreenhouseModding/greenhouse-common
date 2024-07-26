@@ -8,7 +8,18 @@ plugins {
     `maven-publish`
 }
 
-base.archivesName.set("${Properties.MOD_ID}-${project.name}")
+lateinit var props: Properties.ModuleProperties
+
+Properties.MODULES.forEach { (name, metadata) ->
+    Properties.PLATFORMS.forEach { platform ->
+        if (project.name == "${name}-${platform}")
+            props = metadata
+    }
+}
+
+project.ext["props"] = props
+
+base.archivesName.set("${props.modId}-${project.name}")
 group = Properties.GROUP
 version = "${Versions.MOD}+${Versions.MINECRAFT}"
 
@@ -53,7 +64,7 @@ dependencies {
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
 setOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements").forEach { variant ->
     configurations.getByName(variant).outgoing {
-        capability("$group:${Properties.MOD_ID}-${project.name}:$version")
+        capability("$group:${props.modId}-${project.name}:$version")
     }
     publishing.publications.forEach { publication ->
         if (publication is MavenPublication) {
@@ -65,16 +76,16 @@ setOf("apiElements", "runtimeElements", "sourcesElements", "javadocElements").fo
 tasks {
     named<Jar>("sourcesJar").configure {
         from(rootProject.file("LICENSE")) {
-            rename { "${it}_${Properties.MOD_NAME}" }
+            rename { "${it}_${props.modName}" }
         }
     }
     named<Jar>("jar").configure {
         from(rootProject.file("LICENSE")) {
-            rename { "${it}_${Properties.MOD_NAME}" }
+            rename { "${it}_${props.modName}" }
         }
 
         manifest {
-            attributes["Specification-Title"] = Properties.MOD_NAME
+            attributes["Specification-Title"] = props.modName
             attributes["Specification-Vendor"] = Properties.MOD_AUTHOR
             attributes["Specification-Version"] = archiveVersion
             attributes["Implementation-Title"] = project.name
@@ -92,13 +103,13 @@ tasks {
         "fabric_loader_version" to Versions.FABRIC_LOADER,
         "fabric_minecraft_version_range" to Versions.FABRIC_MINECRAFT_RANGE,
         "fabric_loader_range" to Versions.FABRIC_LOADER_RANGE,
-        "mod_name" to Properties.MOD_NAME,
+        "mod_name" to props.modName,
         "mod_author" to Properties.MOD_AUTHOR,
         "mod_contributors" to Properties.MOD_CONTRIBUTORS,
         "fabric_mod_contributors" to createFabricContributors(),
-        "mod_id" to Properties.MOD_ID,
+        "mod_id" to props.modId,
         "mod_license" to Properties.LICENSE,
-        "mod_description" to Properties.DESCRIPTION,
+        "mod_description" to props.description,
         "neoforge_version" to Versions.NEOFORGE,
         "neoforge_minecraft_version_range" to Versions.NEOFORGE_MINECRAFT_RANGE,
         "neoforge_loader_version_range" to Versions.NEOFORGE_LOADER_RANGE,

@@ -1,5 +1,3 @@
-import dev.greenhouseteam.greenhouse_common.gradle.Properties
-
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -24,10 +22,12 @@ plugins {
 rootProject.name = "Greenhouse-Common"
 
 val platforms = setOf("common", "fabric", "neoforge")
+val modules = setOf("core", "event", "registry")
 
-Properties.MODULES.forEach {
+modules.forEach { name ->
     platforms.forEach { platform ->
-        include(":${it}-${platform}")
-        project(":${it}-${platform}").projectDir = file("${it}/${platform}")
+        include(":${name}-${platform}")
+        val proj = project(":${name}-${platform}")
+        proj.projectDir = file("${name}/${platform}")
     }
 }

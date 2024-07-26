@@ -1,5 +1,6 @@
 import dev.greenhouseteam.greenhouse_common.gradle.Properties
 import dev.greenhouseteam.greenhouse_common.gradle.Versions
+import dev.greenhouseteam.greenhouse_common.gradle.props
 
 plugins {
     id("conventions.common")
@@ -14,11 +15,14 @@ sourceSets {
     }
 }
 
+val common = project(":core-common")
+
 dependencies {
     compileOnly(project(":core-common")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-core-common")
+            requireCapability("${Properties.GROUP}:${common.props.modId}-common")
         }
+        isTransitive = false
     }
 }
 
@@ -30,7 +34,7 @@ neoForge {
     }
     addModdingDependenciesTo(sourceSets["test"])
 
-    val at = file("src/main/resources/${Properties.MOD_ID}-event.cfg")
+    val at = file("src/main/resources/${project.props.modId}.cfg")
     if (at.exists())
         setAccessTransformers(at)
     validateAccessTransformers = true

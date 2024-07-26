@@ -4,6 +4,15 @@ plugins {
     id("conventions.common")
 }
 
+lateinit var props: Properties.ModuleProperties;
+
+Properties.MODULES.forEach { (name, metadata) ->
+    Properties.PLATFORMS.forEach { platform ->
+        if (project.name == "${name}-${platform}")
+            props = metadata
+    }
+}
+
 fun getCommonProjectName() : String {
     if (!project.name.contains("-"))
         return "common"
@@ -28,12 +37,12 @@ configurations {
 dependencies {
     compileOnly(project(":${getCommonProjectName()}")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-${getCommonProjectName()}")
+            requireCapability("${Properties.GROUP}:${props.modId}-${getCommonProjectName()}")
         }
     }
     testCompileOnly(project(":${getCommonProjectName()}")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-${getCommonProjectName()}")
+            requireCapability("${Properties.GROUP}:${props.modId}-${getCommonProjectName()}")
         }
     }
     "commonJava"(project(":${getCommonProjectName()}", "commonJava"))

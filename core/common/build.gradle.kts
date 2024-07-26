@@ -1,5 +1,6 @@
 import dev.greenhouseteam.greenhouse_common.gradle.Properties
 import dev.greenhouseteam.greenhouse_common.gradle.Versions
+import dev.greenhouseteam.greenhouse_common.gradle.props
 
 plugins {
     id("conventions.common")
@@ -23,7 +24,7 @@ neoForge {
     }
     addModdingDependenciesTo(sourceSets["test"])
 
-    val at = file("src/main/resources/${Properties.MOD_ID}-core.cfg")
+    val at = file("src/main/resources/${project.props.modId}.cfg")
     if (at.exists())
         setAccessTransformers(at)
     validateAccessTransformers = true

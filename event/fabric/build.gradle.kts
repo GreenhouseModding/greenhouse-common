@@ -2,6 +2,7 @@ import dev.greenhouseteam.greenhouse_common.gradle.Properties
 import dev.greenhouseteam.greenhouse_common.gradle.Versions
 import net.fabricmc.loom.task.RemapJarTask
 import org.gradle.jvm.tasks.Jar
+import dev.greenhouseteam.greenhouse_common.gradle.props
 
 plugins {
     id("conventions.loader")
@@ -16,6 +17,8 @@ repositories {
     }
 }
 
+val common = project(":core-common")
+
 dependencies {
     minecraft("com.mojang:minecraft:${Versions.INTERNAL_MINECRAFT}")
     mappings(loom.officialMojangMappings())
@@ -26,24 +29,27 @@ dependencies {
 
     compileOnly(project(":core-common")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-core-common")
+            requireCapability("${Properties.GROUP}:${common.props.modId}-common")
         }
+        isTransitive = false
     }
-    compileOnly(project(":core-fabric", "namedElements"))
+    compileOnly(project(":core-fabric", "namedElements")) {
+        isTransitive = false
+    }
 }
 
 loom {
-    val aw = file("src/main/resources/${Properties.MOD_ID}-event.accesswidener");
+    val aw = file("src/main/resources/${project.props.modId}.accesswidener");
     if (aw.exists())
         accessWidenerPath.set(aw)
     mixin {
-        defaultRefmapName.set("${Properties.MOD_ID}-event.refmap.json")
+        defaultRefmapName.set("${project.props.modId}.refmap.json")
     }
 }
 
 tasks {
     named<ProcessResources>("processResources").configure {
-        exclude("${Properties.MOD_ID}.cfg")
+        exclude("${project.props.modId}.cfg")
     }
 }
 

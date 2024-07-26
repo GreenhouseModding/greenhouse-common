@@ -2,6 +2,7 @@ import dev.greenhouseteam.greenhouse_common.gradle.Properties
 import dev.greenhouseteam.greenhouse_common.gradle.Versions
 import org.apache.tools.ant.filters.LineContains
 import org.gradle.jvm.tasks.Jar
+import dev.greenhouseteam.greenhouse_common.gradle.props
 
 plugins {
     id("conventions.loader")
@@ -9,27 +10,34 @@ plugins {
     id("me.modmuss50.mod-publish-plugin")
 }
 
+val common = project(":core-common")
+val event = project(":event-common")
+
 dependencies {
     compileOnly(project(":core-common")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-core-common")
+            requireCapability("${Properties.GROUP}:${common.props.modId}-common")
         }
+        isTransitive = false
     }
     compileOnly(project(":core-neoforge")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-core-neoforge")
+            requireCapability("${Properties.GROUP}:${common.props.modId}-neoforge")
         }
+        isTransitive = false
     }
 
     compileOnly(project(":event-common")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-event-common")
+            requireCapability("${Properties.GROUP}:${event.props.modId}-common")
         }
+        isTransitive = false
     }
     compileOnly(project(":event-neoforge")) {
         capabilities {
-            requireCapability("${Properties.GROUP}:${Properties.MOD_ID}-event-neoforge")
+            requireCapability("${Properties.GROUP}:${event.props.modId}-neoforge")
         }
+        isTransitive = false
     }
 }
 
@@ -41,7 +49,7 @@ neoForge {
     }
     addModdingDependenciesTo(sourceSets["test"])
 
-    val at = project(":core-common").file("src/main/resources/${Properties.MOD_ID}-registry.cfg")
+    val at = project(":core-common").file("src/main/resources/${project.props.modId}.cfg")
     if (at.exists())
         setAccessTransformers(at)
     validateAccessTransformers = true
