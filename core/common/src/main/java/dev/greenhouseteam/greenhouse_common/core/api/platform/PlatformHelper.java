@@ -1,5 +1,7 @@
 package dev.greenhouseteam.greenhouse_common.core.api.platform;
 
+import dev.greenhouseteam.greenhouse_common.core.api.ModWrapper;
+
 public interface PlatformHelper {
 
     /**
@@ -7,7 +9,7 @@ public interface PlatformHelper {
      *
      * @return An enum value representing the current platform.
      */
-    dev.greenhouseteam.greenhouse_common.core.api.platform.Platform getPlatform();
+    Platform getPlatform();
 
     /**
      * Checks if a mod with the given id is loaded.
@@ -23,6 +25,8 @@ public interface PlatformHelper {
      * @return True if in a development environment, false otherwise.
      */
     boolean isDevelopmentEnvironment();
+
+    ModWrapper[] getLoadedMods();
 
     /**
      * Gets the name of the environment type as a string.

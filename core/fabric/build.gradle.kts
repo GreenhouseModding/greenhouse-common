@@ -31,6 +31,13 @@ loom {
     mixin {
         defaultRefmapName.set("${project.props.modId}.refmap.json")
     }
+    runs {
+        create("testModClient") {
+            client()
+            name = "Testmod Client"
+            source(sourceSets.test.get())
+        }
+    }
 }
 
 tasks {

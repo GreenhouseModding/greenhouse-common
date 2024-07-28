@@ -10,7 +10,6 @@ plugins {
     id("me.modmuss50.mod-publish-plugin")
 }
 
-
 val core = project(":core-common")
 val event = project(":event-common")
 

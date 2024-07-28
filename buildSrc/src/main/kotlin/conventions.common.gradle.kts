@@ -26,6 +26,13 @@ base.archivesName.set("${props.modId}-${platform}")
 group = Properties.GROUP
 version = "${Versions.MOD}+${Versions.MINECRAFT}"
 
+sourceSets {
+    test {
+        compileClasspath += main.get().compileClasspath
+        runtimeClasspath += main.get().runtimeClasspath
+    }
+}
+
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(Versions.JAVA))
     withSourcesJar()

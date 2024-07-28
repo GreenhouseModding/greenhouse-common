@@ -16,7 +16,7 @@ object Properties {
     val MODULES = mapOf(
         "core" to ModuleProperties("core", "Greenhouse Common", "greenhouse_common", "Common code for Greenhouse mods"),
         "event" to ModuleProperties("event", "Greenhouse Event", "greenhouse_event", "Events for Greenhouse Common"),
-        "registry" to ModuleProperties("registry", "Greenhouse Registry", "greenhouse_registry", "Registry helpers for Greenhouse Common")
+        "registry" to ModuleProperties("registry", "Greenhouse Registry", "greenhouse_registry", "Registry helpers for Greenhouse Common"),
     )
 
     val PLATFORMS = setOf(

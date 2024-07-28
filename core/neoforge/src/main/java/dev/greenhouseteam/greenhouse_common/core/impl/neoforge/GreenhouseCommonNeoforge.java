@@ -6,8 +6,8 @@ import dev.greenhouseteam.greenhouse_common.core.impl.neoforge.platform.Neoforge
 import net.neoforged.fml.common.Mod;
 
 @Mod(GreenhouseConstants.MOD_ID)
-public class GreenhouseCommonNeoForge {
-    public GreenhouseCommonNeoForge() {
+public class GreenhouseCommonNeoforge {
+    public GreenhouseCommonNeoforge() {
         GreenhouseCommon.init(new NeoforgePlatformHelper());
     }
 }

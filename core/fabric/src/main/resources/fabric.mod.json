@@ -28,5 +28,11 @@
         "fabric-api": "*",
         "minecraft": "${fabric_minecraft_version_range}",
         "java": ">=${java_version}"
+    },
+    "custom": {
+        "modmenu": {
+            "badges": [ "library" ],
+            "update_checker": false
+        }
     }
 }

@@ -1,0 +1,5 @@
+{
+  "entrypoints": {
+    "common": "dev.greenhouseteam.greenhouse_common.core.test.TestCommonEntry"
+  }
+}

@@ -27,6 +27,15 @@
         "fabricloader": "${fabric_loader_range}",
         "fabric-api": "*",
         "minecraft": "${fabric_minecraft_version_range}",
-        "java": ">=${java_version}"
+        "java": ">=${java_version}",
+        "greenhouse_common": "*",
+        "greenhouse_event": "*"
+    },
+    "custom": {
+        "modmenu": {
+            "badges": [ "library" ],
+            "parent": "greenhouse_common",
+            "update_checker": false
+        }
     }
 }
