@@ -18,12 +18,20 @@ repositories {
 
 val core = project(":core-common")
 
+repositories {
+    maven {
+        name = "TerraformersMC"
+        url = uri("https://maven.terraformersmc.com/")
+    }
+}
+
 dependencies {
     minecraft("com.mojang:minecraft:${Versions.INTERNAL_MINECRAFT}")
     mappings(loom.officialMojangMappings())
 
     modImplementation("net.fabricmc:fabric-loader:${Versions.FABRIC_LOADER}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${Versions.FABRIC_API}")
+    modLocalRuntime("com.terraformersmc:modmenu:${Versions.MOD_MENU}")
 
     compileOnly(project(":core-common")) {
         capabilities {
@@ -31,7 +39,7 @@ dependencies {
         }
         isTransitive = false
     }
-    compileOnly(project(":core-fabric", "namedElements")) {
+    implementation(project(":core-fabric", "namedElements")) {
         isTransitive = false
     }
 }
@@ -42,6 +50,30 @@ loom {
         accessWidenerPath.set(aw)
     mixin {
         defaultRefmapName.set("${project.props.modId}.refmap.json")
+    }
+    runs {
+        named("client") {
+            client()
+            configName = "${props.modName} - Fabric Client"
+            setSource(sourceSets["test"])
+            ideConfigGenerated(true)
+            vmArgs("-Dmixin.debug.verbose=true", "-Dmixin.debug.export=true")
+        }
+        named("server") {
+            server()
+            configName = "${props.modName} - Fabric Server"
+            setSource(sourceSets["test"])
+            ideConfigGenerated(true)
+            vmArgs("-Dmixin.debug.verbose=true", "-Dmixin.debug.export=true")
+        }
+    }
+    mods {
+        register(props.modId) {
+            sourceSet(sourceSets["main"])
+        }
+        register("${props.modId}_test") {
+            sourceSet(sourceSets["test"])
+        }
     }
 }
 

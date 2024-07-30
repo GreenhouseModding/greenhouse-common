@@ -3,11 +3,11 @@ package dev.greenhouseteam.greenhouse_common.core.impl.neoforge.platform;
 import dev.greenhouseteam.greenhouse_common.core.api.ModWrapper;
 import dev.greenhouseteam.greenhouse_common.core.api.platform.Platform;
 import dev.greenhouseteam.greenhouse_common.core.api.platform.PlatformHelper;
-import dev.greenhouseteam.greenhouse_common.core.impl.neoforge.NeoforgeModWrapper;
+import dev.greenhouseteam.greenhouse_common.core.impl.neoforge.NeoForgeModWrapper;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 
-public class NeoforgePlatformHelper implements PlatformHelper {
+public class NeoForgePlatformHelper implements PlatformHelper {
     private static ModWrapper[] mods;
 
     @Override
@@ -31,7 +31,7 @@ public class NeoforgePlatformHelper implements PlatformHelper {
             mods = ModList.get()
                     .getMods()
                     .stream()
-                    .map(NeoforgeModWrapper::new)
+                    .map(NeoForgeModWrapper::new)
                     .toArray(ModWrapper[]::new);
         return mods;
     }

@@ -28,3 +28,17 @@ mandatory=true
 versionRange="${neoforge_minecraft_version_range}"
 ordering="NONE"
 side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="greenhouse_common"
+mandatory=true
+versionRange="(${mod_version},]"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="greenhouse_event"
+mandatory=true
+versionRange="(${mod_version},]"
+ordering="NONE"
+side="BOTH"

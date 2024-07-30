@@ -9,11 +9,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
-public class NeoforgeModWrapper implements ModWrapper {
+public class NeoForgeModWrapper implements ModWrapper {
     private final IModInfo modInfo;
     private final Optional<ModConfig> config;
 
-    public NeoforgeModWrapper(IModInfo modInfo){
+    public NeoForgeModWrapper(IModInfo modInfo){
         this.modInfo = modInfo;
         try {
             this.config = ModConfig.load(resolve(ModConfig.CONFIG_PATH));

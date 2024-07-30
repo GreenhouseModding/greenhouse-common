@@ -39,6 +39,35 @@ neoForge {
     if (at.exists())
         setAccessTransformers(at)
     validateAccessTransformers = true
+
+    runs {
+        configureEach {
+            systemProperty("forge.logging.markers", "REGISTRIES")
+            systemProperty("forge.logging.console.level", "debug")
+            systemProperty("neoforge.enabledGameTestNamespaces", props.modId)
+        }
+        create("client") {
+            client()
+            ideName = "${props.modName} - NeoForge Client"
+            sourceSet = sourceSets["test"]
+        }
+        create("server") {
+            server()
+            ideName = "${props.modName} - NeoForge Server"
+            programArgument("--nogui")
+            sourceSet = sourceSets["test"]
+        }
+    }
+
+    mods {
+        register(props.modId) {
+            sourceSet(sourceSets["main"])
+        }
+        // Uncomment for test mod.
+//        register("${props.modId}_test") {
+//            sourceSet(sourceSets["test"])
+//        }
+    }
 }
 
 tasks {

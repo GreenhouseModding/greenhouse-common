@@ -4,9 +4,9 @@ issueTrackerURL = "https://github.com/${sources}/issues"
 license="${mod_license}"
 
 [[mods]]
-modId="${mod_id}"
+modId="${mod_id}_test"
 version="${mod_version}+${minecraft_version}"
-displayName="${mod_name}"
+displayName="${mod_name} Test"
 logoFile="${mod_id}.png"
 logoBlur=false
 authors="${mod_author}"
@@ -26,12 +26,5 @@ side="BOTH"
 modId="minecraft"
 mandatory=true
 versionRange="${neoforge_minecraft_version_range}"
-ordering="NONE"
-side="BOTH"
-
-[[dependencies.${mod_id}]]
-modId="greenhouse_common"
-mandatory=true
-versionRange="(${mod_version},]"
 ordering="NONE"
 side="BOTH"

@@ -32,10 +32,27 @@ loom {
         defaultRefmapName.set("${project.props.modId}.refmap.json")
     }
     runs {
-        create("testModClient") {
+        named("client") {
             client()
-            name = "Testmod Client"
-            source(sourceSets.test.get())
+            configName = "${props.modName} - Fabric Client"
+            setSource(sourceSets["test"])
+            ideConfigGenerated(true)
+            vmArgs("-Dmixin.debug.verbose=true", "-Dmixin.debug.export=true")
+        }
+        named("server") {
+            server()
+            configName = "${props.modName} - Fabric Server"
+            setSource(sourceSets["test"])
+            ideConfigGenerated(true)
+            vmArgs("-Dmixin.debug.verbose=true", "-Dmixin.debug.export=true")
+        }
+    }
+    mods {
+        register(props.modId) {
+            sourceSet(sourceSets["main"])
+        }
+        register("${props.modId}_test") {
+            sourceSet(sourceSets["test"])
         }
     }
 }

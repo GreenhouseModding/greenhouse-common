@@ -22,7 +22,7 @@ public record RegistryContext<TValue>(Registry<TValue> registry, String namespac
     }
 
     @SuppressWarnings("unchecked")
-    public <TRegister extends TValue> Lazy<TRegister> Register(Lazy<TRegister> lazy, String path) {
+    public <TRegister extends TValue> Lazy<TRegister> register(Lazy<TRegister> lazy, String path) {
         var _lazy = (Lazy<TValue>) lazy;
         var loc = ResourceLocation.fromNamespaceAndPath(namespace, path);
         PAIRS.add(new RegistryPair<>(

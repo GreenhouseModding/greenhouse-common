@@ -8,8 +8,8 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.RegisterEvent;
 
 @Mod(GreenhouseRegistryConstants.MOD_ID)
-public class GreenhouseRegistryNeoforge {
-    public GreenhouseRegistryNeoforge(IEventBus bus) {
+public class GreenhouseRegistryNeoForge {
+    public GreenhouseRegistryNeoForge(IEventBus bus) {
         bus.addListener(this::registerToRegistries);
     }
 

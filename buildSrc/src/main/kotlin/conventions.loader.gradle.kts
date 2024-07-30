@@ -14,9 +14,7 @@ Properties.MODULES.forEach { (name, metadata) ->
 }
 
 fun getCommonProjectName() : String {
-    if (!project.name.contains("-"))
-        return "common"
-    return project.name.split("-")[0] + "-common"
+    return props.moduleName + "-common"
 }
 
 configurations {
@@ -55,6 +53,10 @@ tasks {
     named<JavaCompile>("compileJava").configure {
         dependsOn(configurations.getByName("commonJava"))
         source(configurations.getByName("commonJava"))
+    }
+    named<JavaCompile>("compileTestJava").configure {
+        dependsOn(configurations.getByName("commonTestJava"))
+        source(configurations.getByName("commonTestJava"))
     }
     named<ProcessResources>("processResources").configure {
         dependsOn(configurations.getByName("commonResources"))
