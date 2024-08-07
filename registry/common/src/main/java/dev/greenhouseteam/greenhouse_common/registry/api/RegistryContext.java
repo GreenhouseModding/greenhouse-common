@@ -4,8 +4,10 @@ import dev.greenhouseteam.greenhouse_common.event.api.Event;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 
+import java.security.Provider;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public record RegistryContext<TValue>(Registry<TValue> registry, String namespace) {
     public static final List<RegistryPair<?>> PAIRS = new ArrayList<>();
@@ -22,12 +24,12 @@ public record RegistryContext<TValue>(Registry<TValue> registry, String namespac
     }
 
     @SuppressWarnings("unchecked")
-    public <TRegister extends TValue> Lazy<TRegister> register(Lazy<TRegister> lazy, String path) {
-        var _lazy = (Lazy<TValue>) lazy;
+    public <TRegister extends TValue> Lazy<TRegister> register(Supplier<TRegister> sup, String path) {
+        var lazy = Lazy.of(sup);
         var loc = ResourceLocation.fromNamespaceAndPath(namespace, path);
         PAIRS.add(new RegistryPair<>(
                 registry,
-                _lazy,
+                (Lazy<TValue>) lazy,
                 loc
         ));
 

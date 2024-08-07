@@ -11,6 +11,12 @@ public class Lazy<T> implements Supplier<T> {
         this.supplier = supplier;
     }
 
+    public static <T> Lazy<T> of(Supplier<T> sup) {
+        if (sup instanceof Lazy<T> lazy)
+            return lazy;
+        return new Lazy<>(sup);
+    }
+
     @Override
     public T get() {
         if (value.isEmpty())
