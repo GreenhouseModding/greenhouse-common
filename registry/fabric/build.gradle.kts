@@ -3,6 +3,7 @@ import dev.greenhouseteam.greenhouse_common.gradle.Versions
 import net.fabricmc.loom.task.RemapJarTask
 import org.gradle.jvm.tasks.Jar
 import dev.greenhouseteam.greenhouse_common.gradle.props
+import dev.greenhouseteam.greenhouse_common.gradle.runDir
 
 plugins {
     id("conventions.loader")
@@ -70,6 +71,7 @@ loom {
             setSource(sourceSets["test"])
             ideConfigGenerated(true)
             vmArgs("-Dmixin.debug.verbose=true", "-Dmixin.debug.export=true")
+            runDir = project.runDir.toString()
         }
         named("server") {
             server()
@@ -77,6 +79,7 @@ loom {
             setSource(sourceSets["test"])
             ideConfigGenerated(true)
             vmArgs("-Dmixin.debug.verbose=true", "-Dmixin.debug.export=true")
+            runDir = project.runDir.toString()
         }
     }
     mods {

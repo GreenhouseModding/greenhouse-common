@@ -27,6 +27,3 @@ object Properties {
 
     class ModuleProperties(val moduleName: String, val modName: String, val modId: String, val description: String)
 }
-
-val Project.props: Properties.ModuleProperties
-    get() = ext["props"] as Properties.ModuleProperties

@@ -2,6 +2,7 @@ import dev.greenhouseteam.greenhouse_common.gradle.Versions
 import org.apache.tools.ant.filters.LineContains
 import org.gradle.jvm.tasks.Jar
 import dev.greenhouseteam.greenhouse_common.gradle.props
+import dev.greenhouseteam.greenhouse_common.gradle.runDir
 
 plugins {
     id("conventions.loader")
@@ -28,6 +29,7 @@ neoForge {
             systemProperty("forge.logging.markers", "REGISTRIES")
             systemProperty("forge.logging.console.level", "debug")
             systemProperty("neoforge.enabledGameTestNamespaces", props.modId)
+            gameDirectory.set(runDir)
         }
         create("client") {
             client()
